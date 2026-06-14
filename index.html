@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>薬液採取量 計算ツール</title>
+<link rel="manifest" href="manifest.json">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
     body { font-family: Arial; padding: 20px; }
     input { width: 100%; padding: 10px; margin: 8px 0; font-size: 18px; }
@@ -54,6 +56,11 @@ function calc() {
 
     document.getElementById("result").innerHTML =
         "採取量：" + result.toFixed(2) + " μL";
+}
+
+// PWA service worker 登録
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js");
 }
 </script>
 
