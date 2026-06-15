@@ -163,6 +163,26 @@
         padding-top: 6px;
         width: 100%;
     }
+
+    table {
+        width: 100%;
+        font-size: 18px;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+
+    th {
+        text-align: left;
+        border-bottom: 2px solid #ccc;
+    }
+
+    td {
+        border-bottom: 1px solid #eee;
+    }
 </style>
 </head>
 <body>
@@ -179,6 +199,11 @@
     <div class="menu-item" onclick="showTool('liquid')">
         <div class="menu-icon">💧</div>
         <div class="menu-text">薬液採取量</div>
+    </div>
+
+    <div class="menu-item" onclick="showTool('lel')">
+        <div class="menu-icon">🔥</div>
+        <div class="menu-text">可燃性ガス LEL 一覧</div>
     </div>
 </div>
 
@@ -262,11 +287,36 @@
     <button class="back-btn" onclick="backMenu()">← ホームに戻る</button>
 </div>
 
+<!-- ▼ LEL 一覧ツール -->
+<div id="lel" class="app-card">
+    <h2>可燃性ガス LEL 一覧</h2>
+
+    <div class="formula-card">
+        <div class="formula-title">主要ガスの爆発下限界（LEL）</div>
+
+        <table>
+            <tr><th>ガス名</th><th style="text-align:right;">LEL（%）</th></tr>
+            <tr><td>水素（H₂）</td><td style="text-align:right;">4.0</td></tr>
+            <tr><td>メタン（CH₄）</td><td style="text-align:right;">5.0</td></tr>
+            <tr><td>プロパン（C₃H₈）</td><td style="text-align:right;">2.1</td></tr>
+            <tr><td>ブタン（C₄H₁₀）</td><td style="text-align:right;">1.8</td></tr>
+            <tr><td>アセチレン（C₂H₂）</td><td style="text-align:right;">2.5</td></tr>
+            <tr><td>一酸化炭素（CO）</td><td style="text-align:right;">12.5</td></tr>
+            <tr><td>エタノール蒸気</td><td style="text-align:right;">3.3</td></tr>
+            <tr><td>硫化水素（H₂S）</td><td style="text-align:right;">4.3</td></tr>
+        </table>
+    </div>
+
+    <button class="back-btn" onclick="backMenu()">← ホームに戻る</button>
+</div>
+
 <script>
 function showTool(id) {
     menu.style.display = "none";
     gas.style.display = "none";
     liquid.style.display = "none";
+    lel.style.display = "none";
+
     document.getElementById(id).style.display = "block";
 }
 
@@ -274,6 +324,7 @@ function backMenu() {
     menu.style.display = "block";
     gas.style.display = "none";
     liquid.style.display = "none";
+    lel.style.display = "none";
 }
 
 function calcGas() {
@@ -319,4 +370,3 @@ function calcLiquid() {
 
 </body>
 </html>
-
