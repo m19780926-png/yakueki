@@ -8,57 +8,70 @@
 <style>
     body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
-        background: #f2f2f7;
+        background: #eef1f5;
         padding: 20px;
         margin: 0;
     }
 
+    /* 画面切り替えカード */
     .app-card {
         background: #ffffff;
-        padding: 24px;
-        border-radius: 18px;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        padding: 26px;
+        border-radius: 20px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.12);
         max-width: 600px;
         margin: auto;
         display: none;
-        animation: fadeIn 0.3s ease;
+        animation: fadeIn 0.35s ease;
     }
 
     @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
+        from { opacity: 0; transform: translateY(12px); }
         to   { opacity: 1; transform: translateY(0); }
     }
 
     h2 {
-        font-size: 28px;
+        font-size: 30px;
         font-weight: bold;
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 24px;
         line-height: 1.4;
     }
 
-    .menu-btn {
-        width: 100%;
-        padding: 18px;
-        margin: 14px 0;
-        font-size: 22px;
-        background: linear-gradient(135deg, #4CAF50, #2e8b3f);
-        color: white;
-        border: none;
-        border-radius: 14px;
-        font-weight: bold;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    /* ホーム画面のアイコン付きボタン */
+    .menu-item {
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 20px;
+        margin: 16px 0;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: transform 0.1s ease;
     }
 
-    .back-btn {
-        margin-top: 20px;
-        width: 100%;
-        padding: 14px;
-        font-size: 20px;
-        background: #888;
+    .menu-item:active {
+        transform: scale(0.97);
+    }
+
+    .menu-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #4CAF50, #2e8b3f);
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: white;
-        border: none;
-        border-radius: 10px;
+        font-size: 32px;
+        margin-right: 18px;
+    }
+
+    .menu-text {
+        font-size: 22px;
+        font-weight: bold;
+        color: #333;
     }
 
     label {
@@ -90,6 +103,17 @@
         border-radius: 12px;
         font-weight: bold;
         box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .back-btn {
+        margin-top: 24px;
+        width: 100%;
+        padding: 14px;
+        font-size: 20px;
+        background: #888;
+        color: white;
+        border: none;
+        border-radius: 10px;
     }
 
     .result {
@@ -146,17 +170,24 @@
 </head>
 <body>
 
-<!-- ▼ メニュー画面 -->
+<!-- ▼ ホーム画面 -->
 <div id="menu" class="app-card" style="display:block;">
-    <h2>採取量計算ツール <br>メニュー</h2>
+    <h2>計算ツール ホーム</h2>
 
-    <button class="menu-btn" onclick="showTool('gas')">気体ガス採取量</button>
-    <button class="menu-btn" onclick="showTool('liquid')">薬液採取量</button>
+    <div class="menu-item" onclick="showTool('gas')">
+        <div class="menu-icon">💨</div>
+        <div class="menu-text">気体ガス採取量</div>
+    </div>
+
+    <div class="menu-item" onclick="showTool('liquid')">
+        <div class="menu-icon">💧</div>
+        <div class="menu-text">薬液採取量</div>
+    </div>
 </div>
 
 <!-- ▼ 気体ツール -->
 <div id="gas" class="app-card">
-    <h2>気体ガス採取量<br>計算ツール</h2>
+    <h2>気体ガス採取量</h2>
 
     <label>希釈ガス作製量（L）</label>
     <input type="number" id="makeVolume" step="0.01">
@@ -184,12 +215,12 @@
         </div>
     </div>
 
-    <button class="back-btn" onclick="backMenu()">← メニューに戻る</button>
+    <button class="back-btn" onclick="backMenu()">← ホームに戻る</button>
 </div>
 
 <!-- ▼ 薬液ツール -->
 <div id="liquid" class="app-card">
-    <h2>薬液採取量<br>計算ツール</h2>
+    <h2>薬液採取量</h2>
 
     <label>室温（℃）</label>
     <input type="number" id="roomTemp" step="0.1">
@@ -231,21 +262,21 @@
         </div>
     </div>
 
-    <button class="back-btn" onclick="backMenu()">← メニューに戻る</button>
+    <button class="back-btn" onclick="backMenu()">← ホームに戻る</button>
 </div>
 
 <script>
 function showTool(id) {
-    document.getElementById("menu").style.display = "none";
-    document.getElementById("gas").style.display = "none";
-    document.getElementById("liquid").style.display = "none";
+    menu.style.display = "none";
+    gas.style.display = "none";
+    liquid.style.display = "none";
     document.getElementById(id).style.display = "block";
 }
 
 function backMenu() {
-    document.getElementById("menu").style.display = "block";
-    document.getElementById("gas").style.display = "none";
-    document.getElementById("liquid").style.display = "none";
+    menu.style.display = "block";
+    gas.style.display = "none";
+    liquid.style.display = "none";
 }
 
 function calcGas() {
