@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>薬液採取量 計算ツール</title>
-<link rel="manifest" href="manifest.json">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -74,35 +73,48 @@
         color: #333;
     }
 
-    /* ▼ 計算式カード（気体版と統一デザイン） */
+    /* ▼ 計算式カード（スマホ完全対応） */
     .formula-card {
         margin-top: 30px;
         background: #ffffff;
         padding: 20px;
-        border-radius: 14px;
-        box-shadow: 0 3px 12px rgba(0,0,0,0.1);
-        border-left: 6px solid #4CAF50;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-left: 6px solid #000000;
     }
 
     .formula-title {
         font-size: 20px;
         font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    .formula-body {
-        font-size: 18px;
-        line-height: 1.6;
+        margin-bottom: 12px;
     }
 
     .formula-math {
-        margin-top: 12px;
-        padding: 12px;
-        background: #f3f3f7;
-        border-radius: 10px;
         font-family: "SF Mono", Consolas, monospace;
         font-size: 17px;
         line-height: 1.6;
+        text-align: center;
+    }
+
+    /* ▼ 分数をスマホでも崩れないようにする */
+    .fraction {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .fraction .top {
+        display: block;
+        padding-bottom: 6px;
+        border-bottom: 2px solid #000;
+        width: 100%;
+    }
+
+    .fraction .bottom {
+        display: block;
+        padding-top: 6px;
+        width: 100%;
     }
 </style>
 </head>
@@ -130,20 +142,34 @@
 
     <div class="result" id="result"></div>
 
-    <!-- ▼ 計算式カード（薬液版） -->
+    <!-- ▼ 計算式カード（スマホ完全対応） -->
     <div class="formula-card">
-        <div class="formula-title">【薬液採取量 計算式】</div>
-
-        <div class="formula-body">
-            温度補正係数と薬液の物性値を用いて、<br>
-            必要な薬液採取量（μL）を求めます。
-        </div>
+        <div class="formula-title">3. 薬液採取量計算式</div>
 
         <div class="formula-math">
-            採取量 (μL) = 273 / (273 + 室温℃) × {<br>
-            ガス作製量 (L) × 分子量 × 作製濃度 (ppm)<br>
-            ÷ (22.4 × 1000 × 比重)<br>
-            }
+
+            <div class="fraction">
+                <span class="top">
+                    273(K)
+                </span>
+                <span class="bottom">
+                    273(K) + 室温(°C)
+                </span>
+            </div>
+
+            ×
+
+            <div class="fraction">
+                <span class="top">
+                    ガス作製量(L) × 薬液の分子量 × 作製濃度(ppm)
+                </span>
+                <span class="bottom">
+                    22.4 × 1000 × 薬液の比重
+                </span>
+            </div>
+
+            <br><br>
+            = 採取量(μL)
         </div>
     </div>
 </div>
@@ -169,11 +195,6 @@ function calc() {
 
     document.getElementById("result").innerHTML =
         "採取量：" + result.toFixed(2) + " μL";
-}
-
-// PWA service worker 登録
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("service-worker.js");
 }
 </script>
 
